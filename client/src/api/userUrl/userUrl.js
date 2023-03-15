@@ -1,3 +1,5 @@
-export const api = {
-    signup:'/api/signup'
-}
+const signupUrl = '/api/signup'
+const signinUrl = '/api/signin'
+
+
+export {signupUrl, signinUrl}
