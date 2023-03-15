@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert'
 import toast,{ Toaster } from "react-hot-toast";
 
-import ContactAdd from './ContactAdd'
+import ContactAdd from './ContactAddComponent'
 
 import { userState,userLogout } from "../redux/features/userSlice";
 import { Modal } from "@mui/material";

@@ -1,5 +1,5 @@
 import React from "react";
-import SigninCom from "../components/SigninCom";
+import SigninCom from "../components/SigninComponent";
 
 function Signin() {
   return (

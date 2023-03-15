@@ -1,5 +1,5 @@
 import React from 'react'
-import ListCom from '../components/ListCom'
+import ListCom from '../components/ListComponent'
  
 function ListPage() {
   return (

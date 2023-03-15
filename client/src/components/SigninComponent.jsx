@@ -59,7 +59,7 @@ function SigninCom() {
                 className="border-2 border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
-            <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600" style={{ width: "120px", height: "40px" }}  disabled={user.login.isLoading}>
+            <button type="submit" className="bg-blue-500 text-white p-2 duration-200 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600" style={{ width: "120px", height: "40px" }}  disabled={user.login.isLoading}>
                 {user.login.isLoading ? <svg className="animate-spin h-5 w-5 mx-auto border-t-2 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg> : "Login"}
             </button>
           </form>
