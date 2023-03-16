@@ -16,7 +16,6 @@ module.exports = {
                 }, process.env.JWT_SECRET,
                     { expiresIn: '7d' }
                 );
-                console.log(accessToken);
                 res.status(201).json({ message: 'user created succesfully', username: response.username, email: response.email, accessToken });
             }).catch(err => {
                 console.log(err.message)

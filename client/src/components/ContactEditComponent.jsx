@@ -1,42 +1,34 @@
 import React, { useEffect, useState } from "react";
-import {useDispatch,useSelector} from 'react-redux'
-import { contactState,removeErr } from "../redux/features/contactSlice";
-import { addContact } from "../redux/Thunk/contactThunk";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../api/axios";
+import { contactState, removeErr } from "../redux/features/contactSlice";
+import { editContact } from "../redux/Thunk/contactThunk";
 
-function ContactAdd({ isOpen, setIsOpen }) {
+function ContactEdit({ setEdit_id, number, email, name }) {
+  const [oldNum,setOldNumb] = useState(number);
+  const [editName, setName] = useState(name);
+  const [editNum, setNum] = useState(number);
+  const [editEmail, setEmail] = useState(email);
 
-  const [name,setName] = useState('');
-  const [num,setNum] = useState('');
-  const [email,setEmail] = useState('');
-
-  const dispatch = useDispatch(); 
-
-  useEffect(()=>{
-    return () => {
-      setEmail('')
-      setNum('')
-      setName('')
-    }
-  },[])
+  const dispatch = useDispatch();
 
   const contacts = useSelector(contactState);
 
-  const handleNewContact = async (e) => {
-    e.preventDefault()
-    let number = Number(num)
-    dispatch(addContact({name,number,email}))
-    setEmail('')
-    setNum('')
-    setName('')
-  }
+  const handleEditContact = async (e) => {
+    e.preventDefault();
+    let number = Number(editNum);
+    dispatch(editContact({ editName, editNum, editEmail, oldNum }));
+    setEmail("");
+    setNum("");
+    setName("");
+    setEdit_id('')
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     return () => {
-      dispatch(removeErr())
-    }
-  },[isOpen])
-
-  
+      dispatch(removeErr());
+    };
+  }, []);
 
   return (
     <>
@@ -44,7 +36,7 @@ function ContactAdd({ isOpen, setIsOpen }) {
         id="authentication-modal"
         tabindex="-1"
         aria-hidden="true"
-        className={`fixed top-0 left-0 right-0 z-50 ${isOpen ? "flex align-middle justify-center" : "hidden"} w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full`}
+        className={`fixed top-0 left-0 right-0 z-50  flex align-middle justify-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full`}
       >
         <div className="relative w-full h-full max-w-md md:h-auto ">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -52,7 +44,7 @@ function ContactAdd({ isOpen, setIsOpen }) {
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
               data-modal-hide="authentication-modal"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setEdit_id("")}
             >
               <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -65,7 +57,7 @@ function ContactAdd({ isOpen, setIsOpen }) {
             </button>
             <div className="px-6 py-6 lg:px-8">
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">New Contact</h3>
-              <form className="space-y-6" action="#" onSubmit={(e)=>handleNewContact(e)}>
+              <form className="space-y-6" action="#" onSubmit={(e) => handleEditContact(e)}>
                 <p className="text-red-600 p-2">{contacts.setErr}</p>
                 <div className="flex flex-col mb-6">
                   <label htmlFor="username" className="mb-2 font-semibold text-gray-700">
@@ -75,7 +67,7 @@ function ContactAdd({ isOpen, setIsOpen }) {
                     type="text"
                     id="name"
                     name="name"
-                    value={name}
+                    value={editName}
                     onChange={(e) => setName(e.target.value)}
                     className="border-2 border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -89,7 +81,7 @@ function ContactAdd({ isOpen, setIsOpen }) {
                     type="number"
                     id="number"
                     name="number"
-                    value={num}
+                    value={editNum}
                     onChange={(e) => setNum(e.target.value)}
                     className="border-2 border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -103,14 +95,15 @@ function ContactAdd({ isOpen, setIsOpen }) {
                     type="email"
                     id="email"
                     name="email"
-                    value={email}
+                    value={editEmail}
                     onChange={(e) => setEmail(e.target.value)}
                     className="border-2 border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500"
                     required
                   />
                 </div>
+                <button></button>
                 <button type="submit" className="bg-blue-500 text-white p-2 duration-200 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600" style={{ width: "120px", height: "40px" }}>
-                  Add
+                  Update
                 </button>
               </form>
             </div>
@@ -121,4 +114,4 @@ function ContactAdd({ isOpen, setIsOpen }) {
   );
 }
 
-export default ContactAdd;
+export default ContactEdit;

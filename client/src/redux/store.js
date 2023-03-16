@@ -4,9 +4,11 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk'
 
 import userReducer from './features/userSlice';
+import contactReducer from './features/contactSlice';
 
 const reducers = combineReducers({
-    user:userReducer
+    user:userReducer,
+    contacts:contactReducer
 })
 
 const persistConfig = {
